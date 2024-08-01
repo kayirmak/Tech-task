@@ -1,9 +1,9 @@
-import TextField from "./shared/textfield";
+import Header from "./widgets/header";
 
 function App() {
   return (
     <>
-      <TextField width="500" />
+      <Header />
     </>
   );
 }
