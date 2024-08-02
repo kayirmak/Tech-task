@@ -7,9 +7,11 @@ function App() {
   return (
     <>
       <Header />
-      <div className="flex gap-x-[85px] justify-center mt-7">
-        <Profile />
-        <div className="flex flex-col gap-y-6 items-end">
+      <div className="grid grid-cols-[1fr_2fr] gap-x-[85px] px-14 mt-7">
+        <div className="justify-self-end">
+          <Profile />
+        </div>
+        <div className="flex flex-col justify-self-start gap-y-6 items-end">
           <RepositoriesList />
           <Pagination />
         </div>
