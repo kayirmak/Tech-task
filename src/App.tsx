@@ -1,16 +1,20 @@
 import Profile from "./features/profile/ui";
 import RepositoriesList from "./features/repositories-list/ui";
+import Pagination from "./shared/pagination";
 import Header from "./widgets/header";
 
 function App() {
   return (
-    <div className="bg-[#F9F9F9]">
+    <>
       <Header />
       <div className="flex gap-x-[85px] justify-center mt-7">
         <Profile />
-        <RepositoriesList />
+        <div className="flex flex-col gap-y-6 items-end">
+          <RepositoriesList />
+          <Pagination />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
