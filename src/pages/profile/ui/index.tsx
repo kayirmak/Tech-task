@@ -5,10 +5,13 @@ import Pagination from "../../../shared/pagination";
 import { RootState } from "../../../shared/store/types";
 import NotFound from "../../../shared/not-found";
 import InitialSearch from "../../../shared/initial-search";
+import { useState } from "react";
 
 function ProfilePage() {
   const user = useSelector((state: RootState) => state.searchUser.user);
   const isError = useSelector((state: RootState) => state.searchUser.isError);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   if (isError) return <NotFound />;
   if (!user && !isError) return <InitialSearch />;
@@ -20,7 +23,7 @@ function ProfilePage() {
       </div>
       <div className="flex flex-col justify-self-start gap-y-6 items-end">
         <RepositoriesList />
-        <Pagination />
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
       </div>
     </div>
   );
