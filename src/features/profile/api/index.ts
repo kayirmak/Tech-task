@@ -9,6 +9,7 @@ export const profileApi = createApi({
       query: (username) => `users/${username}`,
     }),
   }),
+  keepUnusedDataFor: 0,
 });
 
 export const { useLazyGetProfileByUsernameQuery } = profileApi;
