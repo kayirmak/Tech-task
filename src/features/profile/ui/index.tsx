@@ -13,13 +13,17 @@ function Profile({ user }: { user: GitHubUser | null }) {
         alt={user.login}
       />
       <h2 className="font-semibold text-[26px] leading-8 mt-7">{user.name}</h2>
-      <a className="text-[#0064EB] leading-5 mt-3" href={user.html_url}>
+      <a
+        className="text-[#0064EB] leading-5 mt-3"
+        target="_blank"
+        href={user.html_url}
+      >
         {user.login}
       </a>
-      <div className="flex gap-x-5">
+      <div className="flex gap-x-5 mt-6">
         <div className="flex gap-x-2">
           <img src={group_icon} />
-          <p>{user.followers} followers</p>
+          <p className="leading-6">{user.followers} followers</p>
         </div>
         <div className="flex gap-x-2">
           <img src={person_icon} />
