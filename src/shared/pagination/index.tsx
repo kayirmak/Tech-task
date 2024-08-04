@@ -4,13 +4,15 @@ function Pagination({
   currentPage = 1,
   totalPages = 5,
   itemsLimit = 4,
+  itemsPerPage,
   itemsLength = 20,
   setCurrentPage,
 }: {
   currentPage: number;
-  totalPages?: number;
-  itemsLimit?: number;
-  itemsLength?: number;
+  totalPages: number;
+  itemsLimit: number;
+  itemsPerPage: number;
+  itemsLength: number | undefined;
   setCurrentPage: any;
 }) {
   const changePage = (number: number | ((page: number) => void)) => {
@@ -72,7 +74,7 @@ function Pagination({
     return currentPage === 1
       ? `1-${itemsLimit}`
       : `${(currentPage - 1) * itemsLimit + 1}-${
-          (currentPage - 1) * itemsLimit + itemsLimit
+          (currentPage - 1) * itemsLimit + itemsPerPage
         }`;
   };
 

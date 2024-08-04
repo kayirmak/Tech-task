@@ -1,6 +1,7 @@
 import { GitHubUser } from "../api/types";
 
 export interface ISearchUserState {
+  searchUser: string;
   user: GitHubUser | null;
   isError: boolean | null;
 }
