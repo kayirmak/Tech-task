@@ -15,6 +15,9 @@ export function profilePageService() {
   const isErrorSearchUser = useSelector(
     (state: RootState) => state.searchUser.isError
   );
+  const isLoadingSearchUser = useSelector(
+    (state: RootState) => state.searchUser.isLoading
+  );
 
   const [
     fetchRepos,
@@ -42,6 +45,7 @@ export function profilePageService() {
     repos,
     isErrorRepos,
     user,
+    isLoadingSearchUser,
     isErrorSearchUser,
     currentPage,
     setCurrentPage,

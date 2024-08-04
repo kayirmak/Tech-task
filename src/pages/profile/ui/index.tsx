@@ -5,19 +5,23 @@ import NotFound from "../../../shared/not-found";
 import InitialSearch from "../../../shared/initial-search";
 import EmptyList from "../../../shared/empty-list";
 import { profilePageService } from "../model";
+import Spinner from "../../../shared/spinner";
 
 function ProfilePage() {
   const {
     repos,
     isErrorRepos,
+    isFetching,
     user,
     isErrorSearchUser,
+    isLoadingSearchUser,
     currentPage,
     setCurrentPage,
     limitPerPage,
   } = profilePageService();
 
   if (isErrorSearchUser) return <NotFound />;
+  if (isLoadingSearchUser) return <Spinner />;
   if (!user && !isErrorSearchUser) return <InitialSearch />;
 
   return (
@@ -25,8 +29,10 @@ function ProfilePage() {
       <div className="justify-self-end">
         <Profile user={user} />
       </div>
-      <div className="flex flex-col justify-self-start gap-y-6 items-end">
-        {isErrorRepos || !repos?.length ? (
+      <div className="relative min-w-[877px] w-full flex flex-col justify-self-start gap-y-6 items-end">
+        {isFetching ? (
+          <Spinner />
+        ) : isErrorRepos || !repos?.length ? (
           <EmptyList />
         ) : (
           <>
