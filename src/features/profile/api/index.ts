@@ -1,9 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseUrl } from "../../../shared/api/baseUrl";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQuery } from "../../../shared/api/baseQuery";
 
 export const profileApi = createApi({
   reducerPath: "profileApi",
-  baseQuery: fetchBaseQuery({ baseUrl }),
+  baseQuery,
   endpoints: (builder) => ({
     getProfileByUsername: builder.query({
       query: (username) => `users/${username}`,

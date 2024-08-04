@@ -1,7 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ISearchUserState } from "../../../shared/store/types";
+import { GitHubUser } from "../../../shared/api/types";
 
 const initialState: ISearchUserState = {
+  searchUser: "",
   user: null,
   isError: null,
 };
@@ -10,7 +12,11 @@ export const searchUserSlice = createSlice({
   name: "search_user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<any>) => {
+    searchUserTerm: (state, action: PayloadAction<string>) => {
+      state.searchUser = action.payload;
+    },
+
+    setUser: (state, action: PayloadAction<GitHubUser>) => {
       state.user = action.payload;
       state.isError = null;
     },
@@ -27,5 +33,6 @@ export const searchUserSlice = createSlice({
   },
 });
 
-export const { setUser, setUserError, clearFields } = searchUserSlice.actions;
+export const { searchUserTerm, setUser, setUserError, clearFields } =
+  searchUserSlice.actions;
 export default searchUserSlice.reducer;

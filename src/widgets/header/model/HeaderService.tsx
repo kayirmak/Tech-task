@@ -1,7 +1,13 @@
 import { useDispatch } from "react-redux";
 import { useLazyGetProfileByUsernameQuery } from "../../../features/profile/api";
-import { clearFields, setUser, setUserError } from "../api/searchSlice";
+import {
+  clearFields,
+  searchUserTerm,
+  setUser,
+  setUserError,
+} from "../api/searchSlice";
 import { useEffect } from "react";
+import { transformSearchTerm } from "../../../shared/helpers/deleteSymbolTerm";
 
 function HeaderService() {
   const [trigger, { data, isError }] = useLazyGetProfileByUsernameQuery();
@@ -22,14 +28,17 @@ function HeaderService() {
 
   const handleSearchInput = (e: any) => {
     if (e.code === "Enter" && e.target.value !== "") {
-      trigger(e.target.value);
+      trigger(transformSearchTerm(e.target.value));
     }
     if (e.target.value === "") {
       dispatch(clearFields());
     }
   };
 
-  const keyUp = { onKeyUp: handleSearchInput };
+  const changeSearchInput = (e: any) =>
+    dispatch(searchUserTerm(e.target.value));
+
+  const keyUp = { onKeyUp: handleSearchInput, onChange: changeSearchInput };
 
   return { keyUp, data };
 }
