@@ -3,8 +3,9 @@ import { useLazyGetProfileByUsernameQuery } from "../../../features/profile/api"
 import {
   clearFields,
   searchUserTerm,
-  setUser,
-  setUserError,
+  getSearchUserStart,
+  getSearchUserSuccess,
+  getSearchUserFailure,
 } from "../api/searchSlice";
 import { useEffect } from "react";
 import { transformSearchTerm } from "../../../shared/helpers/deleteSymbolTerm";
@@ -16,23 +17,26 @@ function HeaderService() {
 
   useEffect(() => {
     if (data) {
-      dispatch(setUser(data));
+      dispatch(getSearchUserSuccess(data));
     }
   }, [data]);
 
   useEffect(() => {
     if (isError) {
-      dispatch(setUserError(isError));
+      dispatch(getSearchUserFailure(isError));
     }
   }, [isError]);
 
-  const handleSearchInput = (e: any) => {
-    if (e.code === "Enter" && e.target.value !== "") {
-      trigger(transformSearchTerm(e.target.value));
-    }
-    if (e.target.value === "") {
-      dispatch(clearFields());
-    }
+  const handleSearchInput = async (e: any) => {
+    try {
+      if (e.code === "Enter" && e.target.value !== "") {
+        dispatch(getSearchUserStart());
+        await trigger(transformSearchTerm(e.target.value));
+      }
+      if (e.target.value === "") {
+        dispatch(clearFields());
+      }
+    } catch (error) {}
   };
 
   const changeSearchInput = (e: any) =>

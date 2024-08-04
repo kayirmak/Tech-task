@@ -4,6 +4,7 @@ import { GitHubUser } from "../../../shared/api/types";
 
 const initialState: ISearchUserState = {
   searchUser: "",
+  isLoading: false,
   user: null,
   isError: null,
 };
@@ -16,14 +17,20 @@ export const searchUserSlice = createSlice({
       state.searchUser = action.payload;
     },
 
-    setUser: (state, action: PayloadAction<GitHubUser>) => {
-      state.user = action.payload;
-      state.isError = null;
+    getSearchUserStart: (state) => {
+      state.isLoading = true;
     },
 
-    setUserError: (state, action: PayloadAction<boolean>) => {
+    getSearchUserSuccess: (state, action: PayloadAction<GitHubUser>) => {
+      state.user = action.payload;
+      state.isError = null;
+      state.isLoading = false;
+    },
+
+    getSearchUserFailure: (state, action: PayloadAction<boolean>) => {
       state.user = null;
       state.isError = action.payload;
+      state.isLoading = false;
     },
 
     clearFields: (state) => {
@@ -33,6 +40,11 @@ export const searchUserSlice = createSlice({
   },
 });
 
-export const { searchUserTerm, setUser, setUserError, clearFields } =
-  searchUserSlice.actions;
+export const {
+  searchUserTerm,
+  getSearchUserStart,
+  getSearchUserSuccess,
+  getSearchUserFailure,
+  clearFields,
+} = searchUserSlice.actions;
 export default searchUserSlice.reducer;
